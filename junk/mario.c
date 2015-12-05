@@ -1,8 +1,11 @@
+// CS50 week1: Print mario-like pyramid make of $.
+
 #include <stdio.h>
 
+int void main() {
 
-int main(int argc, char *argv[]) {
   int height = 0;
+
   while (height == 0 || height < 0 || height > 23) {
     printf("Enter the eight of the pyramid:");
     if ((scanf("%d", &height) == 0) || (height < 0 || height > 23)) {
@@ -26,4 +29,3 @@ int main(int argc, char *argv[]) {
   }
   return 0;
 }
-
