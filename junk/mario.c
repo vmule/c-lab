@@ -2,7 +2,7 @@
 
 #include <stdio.h>
 
-int void main() {
+int main(void) {
 
   int height = 0;
 
