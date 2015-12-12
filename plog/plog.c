@@ -19,10 +19,9 @@
 #include <dirent.h>
 
 int main(int argc, char const *argv[]) {
-  float version = 1.0;;
+  float version = 1.0;
   regex_t re_log;
   regex_t re_pid;
-  int filename;
   int i;
 
   if (argc < 2) {
@@ -30,14 +29,14 @@ int main(int argc, char const *argv[]) {
     exit(255);
   }
 
-  /* Allowed on the command line:
-   *  --version
-   *  -V
-   *  /proc/nnnn
-   *   nnnn
-   * where nnnn is any number that doesn't begin with 0.
-   * If --version or -V are present, further arguments are ignored
-   * completely. */
+  // Allowed on the command line:
+  // --version
+  // -V
+  // /proc/nnnn
+  // nnnn
+  // where nnnn is any number that doesn't begin with 0.
+  // If --version or -V are present, further arguments are ignored
+  // completely.
 
   regcomp(&re_pid, "^((/proc/+)?[1-9][0-9]*|-V|--version)$",
           REG_EXTENDED|REG_NOSUB);
@@ -57,13 +56,11 @@ int main(int argc, char const *argv[]) {
 
   regcomp(&re_log, "^(.*log)$",REG_EXTENDED|REG_NOSUB);
 
-  //char* fullpath = (char*) malloc(PATH_MAX+1);
-  //char* linkpath = (char*) malloc(PATH_MAX+1);
+  // At this point, all arguments are in the form /proc/nnnn
+  // or nnnn, so a simple check based on the first char is
+  // possible.
 
-  /* At this point, all arguments are in the form /proc/nnnn
-   * or nnnn, so a simple check based on the first char is
-   * possible. */
-
+  int filename;
   struct dirent **namelist;
   char* fullpath = (char*) malloc(PATH_MAX+1);
   char* linkpath = (char*) malloc(PATH_MAX+1);
