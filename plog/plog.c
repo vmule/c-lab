@@ -1,56 +1,105 @@
-#include<stdlib.h>
-#include<stdio.h>
-#include<sys/types.h>
-#include<sys/stat.h>
-#include<fts.h>
-#include<string.h>
-#include<errno.h>
-#include<limits.h>
-#include<unistd.h>
-#include<regex.h>
+// Copyright 2015 Vito Mule'
+//
+// This file may be used subject to the terms and conditions of the
+// GNU Library General Public License Version 2 as published by the
+// Free Software Foundation.This program is distributed in the hope
+// that it will be useful, but WITHOUT ANY WARRANTY; without even the
+// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+// PURPOSE. See the GNU Library General Public License for more
+// details.
 
-int main(int argc, char* const argv[]) {
-  char buf[PATH_MAX+1];
-  regex_t re;
-  FTS* file_system = NULL;
-  FTSENT* child = NULL;
-  FTSENT* parent = NULL;
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <sys/types.h>
+#include <regex.h>
+#include <limits.h>
+#include <unistd.h>
+#include <errno.h>
+#include <dirent.h>
 
-  if (argc<2) {
-    printf("Usage: %s <path-spec>\n", argv[0]);
+int main(int argc, char const *argv[]) {
+  float version = 1.0;;
+  regex_t re_log;
+  regex_t re_pid;
+  int filename;
+  int i;
+
+  if (argc < 2) {
+    printf("Usage: plog pid...\n");
     exit(255);
   }
 
-  regcomp(&re, "^(.*log)$",REG_EXTENDED|REG_NOSUB);
+  /* Allowed on the command line:
+   *  --version
+   *  -V
+   *  /proc/nnnn
+   *   nnnn
+   * where nnnn is any number that doesn't begin with 0.
+   * If --version or -V are present, further arguments are ignored
+   * completely. */
 
-  file_system = fts_open(argv + 1,FTS_LOGICAL,NULL);
+  regcomp(&re_pid, "^((/proc/+)?[1-9][0-9]*|-V|--version)$",
+          REG_EXTENDED|REG_NOSUB);
 
-  if (NULL != file_system) {
-    while( (parent = fts_read(file_system)) != NULL) {
-      child = fts_children(file_system,0);
-      if (errno) {
-        perror("fts_children");
-      }
+  for (i = 1; i < argc; i++) {
+    if (regexec(&re_pid, argv[i], 0, NULL, 0) != 0) {
+      printf("plog: invalid process id: %s\n", argv[i]);
+      exit(1);
+    }
+    if (!strcmp("-V", argv[i]) || !strcmp("--version", argv[i])) {
+      printf("plog version: %.1f\n", version);
+      exit(0);
+    }
+  }
 
-      regcomp(&re, "^(.*log)$",REG_EXTENDED|REG_NOSUB);
+  regfree(&re_pid);
 
-      while ((NULL != child) && (NULL != child->fts_link)) {
-        child = child->fts_link;
+  regcomp(&re_log, "^(.*log)$",REG_EXTENDED|REG_NOSUB);
 
-        char* file = (char*) malloc(strlen(child->fts_path)+\
-                                           strlen(child->fts_name) +1 );
-        strcpy(file, child->fts_path);
-        strcat(file, child->fts_name);
+  //char* fullpath = (char*) malloc(PATH_MAX+1);
+  //char* linkpath = (char*) malloc(PATH_MAX+1);
 
-        readlink(file, buf, PATH_MAX -1);
+  /* At this point, all arguments are in the form /proc/nnnn
+   * or nnnn, so a simple check based on the first char is
+   * possible. */
 
-        if (regexec(&re, buf, 0, NULL, 0) == 0) {
-          printf("%s: %s\n", argv[0], buf);
-        }
-          memset(&buf[0], 0, sizeof(buf));
+  struct dirent **namelist;
+  char* fullpath = (char*) malloc(PATH_MAX+1);
+  char* linkpath = (char*) malloc(PATH_MAX+1);
+  char buf[PATH_MAX+1];
+
+  if (argv[1][0] != '/') {
+    strcpy(fullpath, "/proc/");
+    strcat(fullpath, argv[1]);
+    strcat(fullpath, "/fd/");
+  }
+  else {
+    strcpy(fullpath, argv[1]);
+    strcat(fullpath, "/fd/");
+  }
+
+  printf("Pid no %s:\n", argv[1]);
+  filename = scandir(fullpath, &namelist, NULL, NULL);
+  if (filename < 1) {
+    perror("scandir");
+  }
+  else {;
+    for (i = 0; i < sizeof(namelist); i++) {
+      strcpy(linkpath, fullpath);
+      strcat(linkpath, namelist[i]->d_name);
+      readlink(linkpath, buf, PATH_MAX -1);
+
+      if (regexec(&re_log, buf, 0, NULL, 0) == 0) {
+        printf("Log path: %s\n", buf);
+        memset(&buf[0], 0, sizeof(buf));
+        free(namelist[i]);
       }
     }
-    fts_close(file_system);
   }
+  memset(&linkpath[0], 0, sizeof(linkpath));
+  memset(&fullpath[0], 0, sizeof(fullpath));
+  free(namelist);
+
   return 0;
 }
