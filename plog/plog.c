@@ -93,10 +93,10 @@ int main(int argc, char const *argv[]) {
         free(namelist[i]);
       }
     }
+  free(namelist);
   }
   memset(&linkpath[0], 0, sizeof(linkpath));
   memset(&fullpath[0], 0, sizeof(fullpath));
-  free(namelist);
 
   return 0;
 }
