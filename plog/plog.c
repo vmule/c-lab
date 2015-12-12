@@ -60,7 +60,7 @@ int main(int argc, char const *argv[]) {
   // or nnnn, so a simple check based on the first char is
   // possible.
 
-  int filename;
+  int entries;
   struct dirent **namelist;
   char* fullpath = (char*) malloc(PATH_MAX+1);
   char* linkpath = (char*) malloc(PATH_MAX+1);
@@ -77,12 +77,12 @@ int main(int argc, char const *argv[]) {
   }
 
   printf("Pid no %s:\n", argv[1]);
-  filename = scandir(fullpath, &namelist, NULL, NULL);
-  if (filename < 1) {
+  entries = scandir(fullpath, &namelist, NULL, NULL);
+  if (entries < 1) {
     perror("scandir");
   }
   else {;
-    for (i = 0; i < sizeof(namelist); i++) {
+    for (i = 0; i < entries; i++) {
       strcpy(linkpath, fullpath);
       strcat(linkpath, namelist[i]->d_name);
       readlink(linkpath, buf, PATH_MAX -1);
