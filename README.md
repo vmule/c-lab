@@ -1,4 +1,4 @@
 C-Lab
 =====
 
-C++ random stuff
+C/C++ random stuff
