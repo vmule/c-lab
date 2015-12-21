@@ -60,8 +60,8 @@ int mergeSort(int *A, int n) {
   int i;
   int mid;
   mid = n/2;
-  int *L = (int*)malloc(mid*sizeof(int));
-  int *R = (int*)malloc((n - mid)*sizeof(int));
+  int *L = malloc(mid*sizeof(int));
+  int *R = malloc((n - mid)*sizeof(int));
 
   for (i = 0; i < mid; i++) {
     L[i] = A[i];
