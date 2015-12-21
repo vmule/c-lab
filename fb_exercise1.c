@@ -5,13 +5,25 @@
 
 float counts[7] = {};
 float max = 0;
-
 char word[];
-//char word[] = "coffee break";
 
-int main() {
-printf("Please enter a word:\n");
-scanf("%s", &word);
+int foo(char *word);
+
+int main(int argc, char *argv[]) {
+
+  if (argc < 2) {
+    printf("Please enter a word:\n");
+    scanf("%s", &word);
+    foo(word);
+  }
+  else {
+   foo(argv[1]);
+  }
+  return 0;
+}
+
+
+int foo(char *word) {
 
   int i;
   int sizeword = strlen(word);
@@ -40,6 +52,4 @@ scanf("%s", &word);
     }
   }
   printf("max num words is: %.1f\n",  max);
-
-  return 0;
 }
