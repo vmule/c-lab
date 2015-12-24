@@ -59,7 +59,8 @@ struct node* print(struct node* head) {
     printf("data on node %i: %d.\n", ++i, current->data);
     current = current->next;
   }
-    printf("data on node %i: %d.\n", ++i, current->data);
+  printf("data on node %i: %d.\n", ++i, current->data);
+  return current;
 }
 
 struct node* search(struct node* head, int data) {
@@ -69,6 +70,7 @@ struct node* search(struct node* head, int data) {
     if (current->data == data) {
       printf("Value %i in node: %i.\n", data, i);
       break;
+      return current;
     }
     else {
       current = current->next;
@@ -77,8 +79,10 @@ struct node* search(struct node* head, int data) {
   }
   if (current->data == data) {
     printf("Value %i in node: %i.\n", data, i);
+    return current;
   }
   else {
     printf("Value %i not found!.\n", data);
+    return 0;
   }
 }
