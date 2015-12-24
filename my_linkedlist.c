@@ -12,7 +12,7 @@ struct node* insert(struct node* head, int data);
 struct node* print(struct node* head);
 struct node* search(struct node* head, int val);
 
-void main(void) {
+int main(void) {
 
 // Create head pointer and assign it to null since the list is empty for now.
 struct node *head;
@@ -36,6 +36,7 @@ print(head);
 // search for specific data in the linked list.
 search(head, 414);
 
+return 0;
 }
 
 struct node* insert(struct node* head, int data) {
