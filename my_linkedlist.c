@@ -4,7 +4,7 @@
 // Declaring structure for our linked list node.
 struct node {
   int data;
-  struct node *link;
+  struct node *next;
 };
 
 // Prototypes functions.
@@ -21,7 +21,7 @@ head = NULL;
 // add a node manually to out linked list.
 struct node* firstnode = (struct node*)malloc(sizeof(struct node));
 firstnode->data = 10;
-firstnode->link = NULL;
+firstnode->next = NULL;
 // head pointer now points to firstnode.
 head = firstnode;
 
@@ -39,45 +39,45 @@ search(head, 414);
 }
 
 struct node* insert(struct node* head, int data) {
-  struct node* tmp = head;
-  while (tmp->link != NULL) {
-    tmp = tmp->link;
+  struct node* current = head;
+  while (current->next != NULL) {
+    current = current->next;
   }
   struct node* newnode = (struct node*)malloc(sizeof(struct node));
-  tmp->link = newnode;
+  current->next = newnode;
   newnode->data = data;
-  newnode->link = NULL;
+  newnode->next = NULL;
   return newnode;
 }
 
 
 struct node* print(struct node* head) {
-  struct node* tmp = head;
+  struct node* current = head;
   int i = 0;
-  while (tmp->link != NULL) {
-    printf("data on node %i: %d.\n", ++i, tmp->data);
-    tmp = tmp->link;
+  while (current->next != NULL) {
+    printf("data on node %i: %d.\n", ++i, current->data);
+    current = current->next;
   }
-    printf("data on node %i: %d.\n", ++i, tmp->data);
+    printf("data on node %i: %d.\n", ++i, current->data);
 }
 
-struct node* search(struct node* head, int val) {
+struct node* search(struct node* head, int data) {
   int i = 0;
-  struct node* tmp = head;
-  while (tmp->link != NULL) {
-    if (tmp->data == val) {
-      printf("Value %i in node: %i.\n", val, i);
+  struct node* current = head;
+  while (current->next != NULL) {
+    if (current->data == data) {
+      printf("Value %i in node: %i.\n", data, i);
       break;
     }
     else {
-      tmp = tmp->link;
+      current = current->next;
       i++;
     }
   }
-  if (tmp->data == val) {
-    printf("Value %i in node: %i.\n", val, i);
+  if (current->data == data) {
+    printf("Value %i in node: %i.\n", data, i);
   }
   else {
-    printf("Value %i not found!.\n", val);
+    printf("Value %i not found!.\n", data);
   }
 }
