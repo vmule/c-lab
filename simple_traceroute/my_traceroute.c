@@ -23,8 +23,7 @@
 #include<sys/un.h>
 #include<netinet/ip_icmp.h>
 
-unsigned short csum (unsigned short *buf, int nwords)
-{
+unsigned short csum (unsigned short *buf, int nwords) {
   unsigned long sum;
   for (sum = 0; nwords > 0; nwords--)
     sum += *buf++;
@@ -123,4 +122,3 @@ ttl++;
 }
 return 0;
 }
-
