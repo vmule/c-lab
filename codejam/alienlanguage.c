@@ -4,45 +4,40 @@
 #include<regex.h>
 #include<string.h>
 
-regex_t regex;
-int match;
-
-
-
-
 int main(void) {
 
+regex_t regex;
+  int match;
   int i, j, z, L, D, N;
 
   scanf("%d %d %d", &L, &D, &N);
   //  printf("%d %d %d\n", L, D, N);
 
-  char array[D][L+1];
-  char array2[500][500];
+  char dictionary[D][L+1];
+  char radiocomm[500][500];
 
    for (i = 0; i < D; i++) {
-     scanf("%s\n", array[i]);
+     scanf("%s\n", dictionary[i]);
      // printf("%s\n", array[i]);
    }
    i = 0;
-   while (scanf("%s", array2[i]) != EOF) {
+   while (scanf("%s", radiocomm[i]) != EOF) {
      j = 0;
-     while(array2[i][j] != '\0') {
-       if (array2[i][j] == '(') {
-         array2[i][j] = '[';
-       } else if (array2[i][j] == ')') {
-         array2[i][j] = ']';
+     while(radiocomm[i][j] != '\0') {
+       if (radiocomm[i][j] == '(') {
+         radiocomm[i][j] = '[';
+       } else if (radiocomm[i][j] == ')') {
+         radiocomm[i][j] = ']';
        }
        j++;
      }
-
      // printf("regex is: %s\n", array2[i]);
-     match = regcomp(&regex, array2[i], 0);
+     match = regcomp(&regex, radiocomm[i], 0);
      int k = 0;
      z = 0;
      for (k = 0; k < D; k++) {
        // printf("string to match is: %s\n", array[k]);
-       match = regexec(&regex, array[k], 0, NULL, 0);
+       match = regexec(&regex, dictionary[k], 0, NULL, 0);
        if (!match) {
         // printf("match\n");
          z++;
@@ -56,4 +51,3 @@ int main(void) {
 
   return 0;
 }
-
