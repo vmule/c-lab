@@ -18,7 +18,8 @@ int main(void) {
     while (wordpointer != NULL) {
       strcpy(word[j], wordpointer);
       j++;
-      // a null pointer may be specified, in which case the function continues scanning where a previous successful call to the function ended.
+      // a null pointer may be specified, in which case the function continues
+      // scanning where a previous successful call to the function ended.
       wordpointer = strtok(NULL, " ");
     }
     printf("Case #%i: ", (i+1));
