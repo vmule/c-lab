@@ -2,15 +2,15 @@
 #include<stdio.h>
 #include<string.h>
 
-float counts[7] = {0};
-float counts2[7] = {0};
+float counts[7] = {};
+float counts_magic[30] = {};
 float max = 0;
 // word can be maximum 100 chars long.
 char word[100];
 
 void getCount(char* word);
 void getCountMagic(char* word);
-void printCounts(float* counts);
+void printCounts(float* counts, int sizeArray);
 
 int main(int argc, char *argv[]) {
   if (argc < 2) {
@@ -43,7 +43,7 @@ void getCount(char* word) {
       default: break;
     }
   }
-  printCounts(counts);
+  printCounts(counts, 7);
   return;
 }
 
@@ -53,21 +53,21 @@ void getCountMagic(char* word) {
   int sizeword = strlen(word);
   for (i = 0; i < sizeword; i++) {
     k = word[i] - 97;
-    counts2[k]++;
+    counts_magic[k]++;
   }
-  printCounts(counts2);
+  counts_magic[14] = (counts_magic[14] * 0.5);
+  printCounts(counts_magic, 30);
   return;
 }
 
-void printCounts(float* counts) {
+void printCounts(float* counts, int sizeArray) {
   int k;
-  int sizecounts = sizeof(counts)/sizeof(counts[0]);
-  for (k = 0; k < sizecounts; k++) {
+  for (k = 0; k < sizeArray; k++) {
     if (counts[k] > max) {
       max = counts[k];
     }
   }
-  printf("max num words is: %.1f\n",  max);
+  printf("max num words is: %.2f\n",  max);
   return;
 }
 
