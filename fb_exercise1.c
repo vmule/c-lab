@@ -1,33 +1,35 @@
 // Exercise from http://jsperf.com/fb-interview-question-test/2
-
 #include<stdio.h>
 #include<string.h>
 
-float counts[7] = {};
+float counts[7] = {0};
+float counts2[7] = {0};
 float max = 0;
-char word[];
+// word can be maximum 100 chars long.
+char word[100];
 
-int foo(char *word);
+void getCount(char* word);
+void getCountMagic(char* word);
+void printCounts(float* counts);
 
 int main(int argc, char *argv[]) {
-
   if (argc < 2) {
     printf("Please enter a word:\n");
-    scanf("%s", &word);
-    foo(word);
+    scanf("%s", word);
+    getCount(word);
+    getCountMagic(word);
   }
   else {
-   foo(argv[1]);
+  getCount(argv[1]);
+  getCountMagic(argv[1]);
   }
   return 0;
 }
 
-
-int foo(char *word) {
+void getCount(char* word) {
 
   int i;
   int sizeword = strlen(word);
-  printf("Size of word is: %i\n", sizeword);
   for (i = 0; i < sizeword; i++) {
     char letter = word[i];
     switch(letter) {
@@ -41,15 +43,32 @@ int foo(char *word) {
       default: break;
     }
   }
+  printCounts(counts);
+  return;
+}
 
+void getCountMagic(char* word) {
+  int i;
+  int k;
+  int sizeword = strlen(word);
+  for (i = 0; i < sizeword; i++) {
+    k = word[i] - 97;
+    counts2[k]++;
+  }
+  printCounts(counts2);
+  return;
+}
+
+void printCounts(float* counts) {
   int k;
   int sizecounts = sizeof(counts)/sizeof(counts[0]);
   for (k = 0; k < sizecounts; k++) {
-    printf("k is: %i\n", k);
-    printf("count is: %f\n", counts[k]);
     if (counts[k] > max) {
       max = counts[k];
     }
   }
   printf("max num words is: %.1f\n",  max);
+  return;
 }
+
+
