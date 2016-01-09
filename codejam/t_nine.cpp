@@ -3,6 +3,11 @@
 #include<stdlib.h>
 
 #include<iostream>
+int i;
+int k;
+signed int z;
+signed int w;
+int N;
 
 int main(void) {
   int dict[] = {2, 22, 222,
@@ -14,14 +19,9 @@ int main(void) {
                 8, 88, 888,
                 9, 99, 999, 9999};
 
-  int N;
   std::cin >> N;
 
-  int i;
-  int k;
-  signed int z;
-  signed int w;
-  for (i = 0; i < N; i++) {
+    for (i = 0; i < N; i++) {
     char *word = (char*)malloc(1000*(sizeof(char)));
     if (i < 1) {
       std::cin.getline(word, 1000);
@@ -31,11 +31,11 @@ int main(void) {
     printf("Case #%i: ", i + 1);
     for (k = 0; k < len; k++) {
       if (k != 0) {
-       z = (dict[(int)(word[k] - 97)] % 10);
-       w = (dict[(int)(word[k-1] - 97)] % 10);
+       z = (dict[abs((int)(word[k] - 97))] % 10);
+       w = (dict[abs((int)(word[k-1] - 97))] % 10);
       }
       if (k != 0) {
-        if (z == w || ((int)word[k] == 32 && (int)word[(k-1)] == 32)) {
+        if (((int)word[k] == 32 && (int)word[(k-1)] == 32) || z == w) {
           printf(" ");
         }
       }
@@ -47,6 +47,7 @@ int main(void) {
     }
     printf("\n");
     free(word);
+    w = 666;
   }
   return 0;
 }
