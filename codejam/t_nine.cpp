@@ -27,7 +27,7 @@ int main(void) {
     char *word = (char*)malloc(1000*(sizeof(char)));
     if (i < 1) {
       std::cin.getline(word, 1000);
-  }
+    }
   std::cin.getline(word, 1000);
   int len = strlen(word);
   printf("Case #%i: ", i + 1);
