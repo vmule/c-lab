@@ -4,7 +4,7 @@
 
 #include<iostream>
 
-void main(void) {
+int main(void) {
   int dict[] = {2, 22, 222,
                 3, 33, 333,
                 4, 44, 444,
@@ -35,11 +35,11 @@ void main(void) {
        w = (dict[(int)(word[k-1] - 97)] % 10);
       }
       if (k != 0) {
-        if (z == w || (word[k] == ' ' && word[(k-1)] == ' ')) {
+        if (z == w || ((int)word[k] == 32 && (int)word[(k-1)] == 32)) {
           printf(" ");
         }
       }
-      if (word[k] == ' ') {
+      if ((int)word[k] == 32) {
         printf("0");
         continue;
       }
@@ -48,5 +48,5 @@ void main(void) {
     printf("\n");
     free(word);
   }
-  return;
+  return 0;
 }
