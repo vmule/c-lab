@@ -23,33 +23,33 @@ int main(void) {
 
   std::cin >> N;
 
-    for (i = 0; i < N; i++) {
+  for (i = 0; i < N; i++) {
     char *word = (char*)malloc(1000*(sizeof(char)));
     if (i < 1) {
       std::cin.getline(word, 1000);
+  }
+  std::cin.getline(word, 1000);
+  int len = strlen(word);
+  printf("Case #%i: ", i + 1);
+  for (k = 0; k < len; k++) {
+    if (k != 0) {
+     z = (dict[abs((int)(word[k] - 97))] % 10);
+     w = (dict[abs((int)(word[k-1] - 97))] % 10);
     }
-    std::cin.getline(word, 1000);
-    int len = strlen(word);
-    printf("Case #%i: ", i + 1);
-    for (k = 0; k < len; k++) {
-      if (k != 0) {
-       z = (dict[abs((int)(word[k] - 97))] % 10);
-       w = (dict[abs((int)(word[k-1] - 97))] % 10);
+    if (k != 0) {
+      if (((int)word[k] == 32 && (int)word[(k-1)] == 32) || z == w) {
+        printf(" ");
       }
-      if (k != 0) {
-        if (((int)word[k] == 32 && (int)word[(k-1)] == 32) || z == w) {
-          printf(" ");
-        }
-      }
-      if ((int)word[k] == 32) {
-        printf("0");
-        continue;
-      }
-    printf("%i", dict[(word[k] - 97)]);
     }
-    printf("\n");
-    free(word);
-    w = 666;
+    if ((int)word[k] == 32) {
+      printf("0");
+      continue;
+    }
+  printf("%i", dict[(word[k] - 97)]);
+  }
+  printf("\n");
+  free(word);
+  w = 666;
   }
   return 0;
 }
