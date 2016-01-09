@@ -1,8 +1,9 @@
+/* https://code.google.com/codejam/contest/351101/dashboard#s=p2 */
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
-
 #include<iostream>
+
 int i;
 int k;
 signed int z;
@@ -10,6 +11,7 @@ signed int w;
 int N;
 
 int main(void) {
+
   int dict[] = {2, 22, 222,
                 3, 33, 333,
                 4, 44, 444,
