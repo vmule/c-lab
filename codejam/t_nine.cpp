@@ -15,7 +15,6 @@ const int dict[] = {2, 22, 222,
                     9, 99, 999, 9999};
 
 const int MAGIC_NO = 97;
-const int SPACE_NO = 32;
 const char *SPACE = " ";
 const char *NEWLINE = "\n";
 
