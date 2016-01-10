@@ -11,10 +11,8 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include <sys/types.h>
 #include <regex.h>
 #include <limits.h>
-#include <unistd.h>
 #include <errno.h>
 #include <dirent.h>
 
@@ -26,7 +24,7 @@ int main(int argc, char const *argv[]) {
 
   if (argc < 2) {
     printf("Usage: plog pid...\n");
-    exit(255);
+    exit(0);
   }
 
   // Allowed on the command line:
@@ -83,8 +81,8 @@ int main(int argc, char const *argv[]) {
   }
   else {;
     for (i = 0; i < entries; i++) {
-      strcpy(linkpath, fullpath);
-      strcat(linkpath, namelist[i]->d_name);
+      strncpy(linkpath, fullpath, PATH_MAX);
+      strncat(linkpath, namelist[i]->d_name, PATH_MAX - strlen(linkpath));
       readlink(linkpath, buf, PATH_MAX -1);
 
       if (regexec(&re_log, buf, 0, NULL, 0) == 0) {
