@@ -33,7 +33,7 @@ int main(void) {
       std::cin.getline(word, 1000);
     }
     std::cin.getline(word, 1000);
-    std::cout << "Case #" << (word_i + 1) << ":";;
+    std::cout << "Case #" << (word_i + 1) << ":" << SPACE;
     t_nine(word);
   }
   delete [] word;
@@ -43,7 +43,7 @@ int main(void) {
 void t_nine(char* word) {
 
   signed int current_word;
-  signed int previous_word;
+  signed int previous_word = 666;
   int char_k;
   int len = strlen(word);
 
