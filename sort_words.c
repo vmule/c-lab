@@ -40,4 +40,3 @@ void namesort(char words[][20], int n){
     }
   }
 }
-
