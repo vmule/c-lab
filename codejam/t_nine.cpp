@@ -12,9 +12,10 @@ const int dict[] = {2, 22, 222,
                     6, 66, 666,
                     7, 77, 777, 7777,
                     8, 88, 888,
-                    9, 99, 999, 9999};
+                    9, 99, 999, 9999, 0};
 
 const int MAGIC_NO = 97;
+const int MAGIC_SPACE = 59;
 const char SPACE = ' ';
 const char NEWLINE = '\n';
 
@@ -47,10 +48,11 @@ void t_nine(char* word) {
   int len = strlen(word);
 
   for (char_k = 0; char_k < len; char_k++) {
-    if (char_k != 0) {
-     current_word  = (dict[abs((int)(word[char_k] - MAGIC_NO))] % 10);
-     previous_word = (dict[abs((int)(word[char_k-1] - MAGIC_NO))] % 10);
-    }
+     if (word[char_k] == SPACE) {
+       current_word  = 0;
+     } else {
+         current_word  = (dict[abs((int)(word[char_k] - MAGIC_NO))] % 10);
+       }
     if (char_k != 0) {
       if (((int)word[char_k] == (int)SPACE
            && (int)word[(char_k-1)] == (int)SPACE)
@@ -59,10 +61,11 @@ void t_nine(char* word) {
       }
     }
     if ((int)word[char_k] == (int)SPACE) {
-      std::cout << "0";
+      std::cout << dict[27];
       continue;
     }
   std::cout << (dict[(word[char_k] - MAGIC_NO)]);
+  previous_word = current_word;
   }
   std::cout << NEWLINE;
   return;
