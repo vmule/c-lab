@@ -3,7 +3,6 @@
 
 void namesort(char words[][20], int);
 
-
 int main(){
   int i;
   int n;
