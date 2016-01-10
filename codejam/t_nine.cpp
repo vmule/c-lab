@@ -1,14 +1,20 @@
 /* https://code.google.com/codejam/contest/351101/dashboard#s=p2 */
+
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
 #include<iostream>
 
+const int MAGIC_NO = 97;
+const int SPACE_NO = 32;
+const char *SPACE = " ";
+const char *NEWLINE = "\n";
+int WORDS_NUM;
+
 int i;
 int k;
-signed int z;
-signed int w;
-int N;
+signed int current_word;
+signed int previous_word;
 
 int main(void) {
 
@@ -21,10 +27,10 @@ int main(void) {
                 8, 88, 888,
                 9, 99, 999, 9999};
 
-  std::cin >> N;
+  std::cin >> WORDS_NUM;
 
-  for (i = 0; i < N; i++) {
-    char *word = (char*)malloc(1000*(sizeof(char)));
+  for (i = 0; i < WORDS_NUM; i++) {
+    char *word = new char[1000];
     if (i < 1) {
       std::cin.getline(word, 1000);
     }
@@ -33,23 +39,22 @@ int main(void) {
   printf("Case #%i: ", i + 1);
   for (k = 0; k < len; k++) {
     if (k != 0) {
-     z = (dict[abs((int)(word[k] - 97))] % 10);
-     w = (dict[abs((int)(word[k-1] - 97))] % 10);
+     current_word  = (dict[abs((int)(word[k] - MAGIC_NO))] % 10);
+     previous_word = (dict[abs((int)(word[k-1] - MAGIC_NO))] % 10);
     }
     if (k != 0) {
-      if (((int)word[k] == 32 && (int)word[(k-1)] == 32) || z == w) {
-        printf(" ");
+      if (((int)word[k] == (int)SPACE[0] && (int)word[(k-1)] == (int)SPACE[0]) || current_word == previous_word) {
+        std::cout << SPACE[0];
       }
     }
-    if ((int)word[k] == 32) {
-      printf("0");
+    if ((int)word[k] == (int)SPACE[0]) {
+      std::cout << "0";
       continue;
     }
-  printf("%i", dict[(word[k] - 97)]);
+  std::cout << (dict[(word[k] - MAGIC_NO)]);
   }
-  printf("\n");
-  free(word);
-  w = 666;
+  std::cout << NEWLINE[0];
+  delete [] word;
   }
   return 0;
 }
