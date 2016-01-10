@@ -15,10 +15,12 @@ int main(){
   }
 
   char words[n][20];
+
   for(i = 0; i < n; i++){
     printf("Enter word: ");
     scanf("%s", words[i]);
   }
+
   namesort(words, n);
   printf("Sorted words:\n");
   for(i = 0; i < n; i++)
