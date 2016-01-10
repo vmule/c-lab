@@ -42,8 +42,8 @@ int main(void) {
 
 void t_nine(char* word) {
 
-  signed int current_word;
-  signed int previous_word = 666;
+  int current_word;
+  int previous_word;
   int char_k;
   int len = strlen(word);
 
@@ -51,7 +51,7 @@ void t_nine(char* word) {
      if (word[char_k] == SPACE) {
        current_word  = 0;
      } else {
-         current_word  = (dict[abs((int)(word[char_k] - MAGIC_NO))] % 10);
+         current_word  = (dict[(int)(word[char_k] - MAGIC_NO)] % 10);
        }
     if (char_k != 0) {
       if (((int)word[char_k] == (int)SPACE
