@@ -58,7 +58,6 @@ int main(const int argc, const char *argv[]) {
         memset(&link_path[0], 0, sizeof(link_path));
         }
       }
-  //  printf("\n");
   }
   return 0;
 }
