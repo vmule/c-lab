@@ -7,7 +7,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-int main(const int argc, const char *argv[]) {
+int main(void) {
 
   FILE *fd = fopen("/proc/locks", "r");
   char line[100];
