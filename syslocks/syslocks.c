@@ -39,6 +39,7 @@ int main(void) {
     int entries;
     struct stat file_stat;
     char link_path[4097];
+
     entries = scandir(proc_path, &namelist, NULL, NULL);
     if (entries < 1) {
       perror("scandir");
@@ -46,9 +47,10 @@ int main(void) {
         for (i = 0; i < entries; i++) {
           strcpy(link_path, proc_path);
           strcat(link_path, namelist[i]->d_name);
-          int spa = stat(link_path, &file_stat);
+
+          int inode_struct = stat(link_path, &file_stat);
           int ino = file_stat.st_ino;
-          if (spa == -1) {
+          if (inode_struct == -1) {
             perror("stat");
           }
           if (ino == atoi(inode))   {
