@@ -23,7 +23,7 @@ int main(const int argc, const char *argv[]) {
       tmp = strtok(NULL, " ");
     }
     strncpy(pid, tmp, strlen(tmp) + 1);
-    printf("pid: %s ", pid);
+  //  printf("pid: %s ", pid);
     while (i < 7) {
       tmp = strtok(NULL, ":");
       i++;
@@ -53,7 +53,7 @@ int main(const int argc, const char *argv[]) {
          }
          if (ino == atoi(inode))   {
             readlink(link_path, file, PATH_MAX-1);
-            printf("file: %s\n", file);
+            printf("pid: %s file: %s\n", pid, file);
           }
         memset(&link_path[0], 0, sizeof(link_path));
         }
