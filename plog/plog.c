@@ -1,12 +1,12 @@
-// Copyright 2015 Vito Mule'
-//
-// This file may be used subject to the terms and conditions of the
-// GNU Library General Public License Version 2 as published by the
-// Free Software Foundation.This program is distributed in the hope
-// that it will be useful, but WITHOUT ANY WARRANTY; without even the
-// implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
-// PURPOSE. See the GNU Library General Public License for more
-// details.
+/*Copyright 2015 Vito Mule' 
+
+This file may be used subject to the terms and conditions of the
+GNU Library General Public License Version 2 as published by the
+Free Software Foundation.This program is distributed in the hope
+that it will be useful, but WITHOUT ANY WARRANTY; without even the
+implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR
+PURPOSE. See the GNU Library General Public License for more
+details.*/
 
 #include <stdio.h>
 #include <string.h>
@@ -28,14 +28,14 @@ int main(int argc, char const *argv[]) {
     exit(0);
   }
 
-  // Allowed on the command line:
-  // --version
-  // -V
-  // /proc/nnnn
-  // nnnn
-  // where nnnn is any number that doesn't begin with 0.
-  // If --version or -V are present, further arguments are ignored
-  // completely.
+  /*Allowed on the command line:
+    --version
+    -V
+    /proc/nnnn
+    nnnn
+    where nnnn is any number that doesn't begin with 0.
+    If --version or -V are present, further arguments are ignored
+    completely.*/
 
   regcomp(&re_pid, "^((/proc/+)?[1-9][0-9]*|-V|--version)$",
           REG_EXTENDED|REG_NOSUB);
@@ -55,9 +55,9 @@ int main(int argc, char const *argv[]) {
 
   regcomp(&re_log, "^(.*log)$",REG_EXTENDED|REG_NOSUB);
 
-  /* At this point, all arguments are in the form /proc/nnnn
-     or nnnn, so a simple check based on the first char is
-     possible. */
+  /*At this point, all arguments are in the form /proc/nnnn
+    or nnnn, so a simple check based on the first char is
+    possible.*/
 
   int entries;
   struct dirent *namelist;
