@@ -15,6 +15,7 @@
 #include <limits.h>
 #include <errno.h>
 #include <dirent.h>
+#include <unistd.h>
 
 int main(int argc, char const *argv[]) {
   float version = 1.0;
@@ -54,15 +55,17 @@ int main(int argc, char const *argv[]) {
 
   regcomp(&re_log, "^(.*log)$",REG_EXTENDED|REG_NOSUB);
 
-  // At this point, all arguments are in the form /proc/nnnn
-  // or nnnn, so a simple check based on the first char is
-  // possible.
+  /* At this point, all arguments are in the form /proc/nnnn
+     or nnnn, so a simple check based on the first char is
+     possible. */
 
   int entries;
-  struct dirent **namelist;
+  struct dirent *namelist;
   char* fullpath = (char*) malloc(PATH_MAX+1);
   char* linkpath = (char*) malloc(PATH_MAX+1);
   char buf[PATH_MAX+1];
+  DIR *proc_dir;
+  
 
   if (argv[1][0] != '/') {
     strcpy(fullpath, "/proc/");
@@ -75,26 +78,21 @@ int main(int argc, char const *argv[]) {
   }
 
   printf("Pid no %s:\n", argv[1]);
-  entries = scandir(fullpath, &namelist, NULL, NULL);
-  if (entries < 1) {
-    perror("scandir");
+  proc_dir = opendir(fullpath);
+  if (!proc_dir) {
+    perror("opendir PID dir: ");
   }
-  else {;
-    for (i = 0; i < entries; i++) {
-      strncpy(linkpath, fullpath, PATH_MAX);
-      strncat(linkpath, namelist[i]->d_name, PATH_MAX - strlen(linkpath));
-      readlink(linkpath, buf, PATH_MAX -1);
+  while(namelist = readdir(proc_dir)) {
+    strncpy(linkpath, fullpath, PATH_MAX);
+    strncat(linkpath, namelist->d_name, PATH_MAX - strlen(linkpath));
+    readlink(linkpath, buf, PATH_MAX -1);
 
-      if (regexec(&re_log, buf, 0, NULL, 0) == 0) {
-        printf("Log path: %s\n", buf);
-      }
-      free(namelist[i]);
-      memset(&linkpath[0], 0, sizeof(linkpath));
-      memset(&buf[0], 0, sizeof(buf));
+    if (regexec(&re_log, buf, 0, NULL, 0) == 0) {
+      printf("Log path: %s\n", buf);
     }
-  free(namelist);
+    memset(&linkpath[0], 0, sizeof(linkpath));
+    memset(&buf[0], 0, sizeof(buf));
   }
   memset(&fullpath[0], 0, sizeof(fullpath));
-
   return 0;
 }
