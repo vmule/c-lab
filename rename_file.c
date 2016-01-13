@@ -1,27 +1,46 @@
 #include<limits.h>
 #include<string.h>
-
+#include<stdio.h>
+#include<dirent.h>
+#include<stdlib.h>
 
 int main(void) {
 
-struct **dirent folder_struct;
-char folder[] = “/var/www/”
-//printf message
-//scanf folder
-char newfile_html[PATH_MAX +1];
+  struct dirent** folder_struct;
+  char folder[4097];
+  char newfile_htm[4097];
+  char oldfile[4097];
 
-scandir(folder, folder_struct);
-while(folder_struct->d_name != NULL) {
-   char *token strtok(folder_struct->d_name, “.”);
-   //check error
-   return 1;
+  printf("Enter Folder :");
+  scanf("%s", folder);
+  if (folder[(strlen(folder)/sizeof(char) != '/')]) {
+    strcat(folder, "/");
+    printf("Full path: %s\n", folder);
+  }
 
-   strncpy(newfile_html, folder, PATH_MAX);
-   strncat(token, newfile_html, PATH_MAX - strlen());
-   strncat(“.html”, newfile_html, (PATH_MAX - strlen(newfile_html)));
-   rename(folder_struct->d_name, newfile_html);
-   memset(newfile_html, 0, 0);
+  int entries;
+  entries = scandir(folder, &folder_struct, NULL, NULL);
+  int i;
+  for (i = 0; i < entries; i++) {
+    if (folder_struct[i]->d_type == DT_DIR) {
+      continue;
+    }
+    strcpy(oldfile, folder);
+    strcat(oldfile, folder_struct[i]->d_name);
+
+    char *token  = strtok(folder_struct[i]->d_name, ".");
+    strcpy(newfile_htm, folder);
+    strcat(newfile_htm, token);
+    strcat(newfile_htm, ".htm");
+
+    int k = rename(oldfile, newfile_htm);
+    if (k == -1) {
+      perror("rename:");
+    }
+    printf("OLDFILE: %s, ", oldfile);
+    printf("NEWFILE: %s\n", newfile_htm);
+    memset(newfile_htm, 0, 0);
+    memset(oldfile, 0, 0);
+  }
+  return 0;
 }
-return 0;
-}
-
