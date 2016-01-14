@@ -3,33 +3,38 @@
 #include<stdio.h>
 #include<dirent.h>
 #include<stdlib.h>
+#include<errno.h>
 
 int main(void) {
 
-  struct dirent** folder_struct;
-  char folder[4097];
+  struct dirent* folder_struct;
+  char dir_path[4097];
   char newfile_htm[4097];
   char oldfile[4097];
+  DIR *dir;
 
-  printf("Enter Folder :");
-  scanf("%s", folder);
-  if (folder[(strlen(folder)/sizeof(char) != '/')]) {
-    strcat(folder, "/");
-    printf("Full path: %s\n", folder);
+  printf("Enter Folder path: ");
+  scanf("%s", dir_path);
+  if (dir_path[(strlen(dir_path)/sizeof(char) != '/')]) {
+    strcat(dir_path, "/");
+    printf("Full path: %s\n", dir_path);
   }
 
-  int entries;
-  entries = scandir(folder, &folder_struct, NULL, NULL);
-  int i;
-  for (i = 0; i < entries; i++) {
-    if (folder_struct[i]->d_type == DT_DIR) {
+  dir = opendir(dir_path);
+  if (dir == NULL) {
+    perror("opendir: ");
+    exit(1);
+  }
+
+  while ((folder_struct = readdir(dir))) {
+    if (folder_struct->d_type == DT_DIR) {
       continue;
     }
-    strcpy(oldfile, folder);
-    strcat(oldfile, folder_struct[i]->d_name);
+    strcpy(oldfile, dir_path);
+    strcat(oldfile, folder_struct->d_name);
 
-    char *token  = strtok(folder_struct[i]->d_name, ".");
-    strcpy(newfile_htm, folder);
+    char *token  = strtok(folder_struct->d_name, ".");
+    strcpy(newfile_htm, dir_path);
     strcat(newfile_htm, token);
     strcat(newfile_htm, ".htm");
 
