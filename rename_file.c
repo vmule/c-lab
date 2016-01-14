@@ -41,11 +41,12 @@ int main(void) {
     int k = rename(oldfile, newfile_htm);
     if (k == -1) {
       perror("rename:");
+      exit(1);
     }
     printf("OLDFILE: %s, ", oldfile);
     printf("NEWFILE: %s\n", newfile_htm);
     memset(newfile_htm, 0, 0);
     memset(oldfile, 0, 0);
   }
-  return 0;
+  exit(0);
 }
