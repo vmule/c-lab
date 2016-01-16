@@ -13,7 +13,7 @@ int main(void) {
     return 1;
   }
 
-  if (N < 999 ) {
+  if (N > 999 ) {
     printf("Please enter a number smaller than 1000: ");
     scanf("%d", &N);
     return 1;
