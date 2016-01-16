@@ -10,13 +10,11 @@ int main(void) {
   if (N < 2 ) {
     printf("Please enter a number greater than 2: ");
     scanf("%d", &N);
-    return 1;
   }
 
   if (N > 999 ) {
     printf("Please enter a number smaller than 1000: ");
     scanf("%d", &N);
-    return 1;
   }
 
   printf("Prime numbers:\n");
