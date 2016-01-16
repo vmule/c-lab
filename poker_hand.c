@@ -13,7 +13,7 @@ int main(void) {
   int card;
   char in_hand[4][13] = {0};
 
-  for ( i = 7; i > 0; i--) {
+  for ( i = 5; i > 0; i--) {
     srand(time(NULL) - (rand() % 999));
     suit = rand() % 3;
     card = rand() % 12;
