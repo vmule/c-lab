@@ -1,0 +1,29 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include <time.h>
+
+const char suits[] = {'h', 's', 'c', 'd'};
+const char cards[] = {'2', '3', '4', '5', '6', '7', '8', '9',
+                  'T', 'J', 'Q', 'K', 'A'};
+
+int main(void) {
+
+  int i;
+  int suit;
+  int card;
+  char hand[7];
+  char in_hand[4][13] = {0};
+
+  for ( i = 7; i > 0; i--) {
+    srand(time(NULL) - (rand() % 999));
+    suit = rand() % 3;
+    card = rand() % 12;
+    if (!in_hand[suit][card]) {
+      in_hand[suit][card] = '1';
+      printf("%c%c ", suits[suit], cards[card]);
+    } else {
+        i++;
+     }
+  }
+  printf("\n");
+}
