@@ -11,7 +11,6 @@ int main(void) {
   int i;
   int suit;
   int card;
-  char hand[7];
   char in_hand[4][13] = {0};
 
   for ( i = 7; i > 0; i--) {
