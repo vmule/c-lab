@@ -4,7 +4,7 @@
 
 const char suits[] = {'h', 's', 'c', 'd'};
 const char cards[] = {'2', '3', '4', '5', '6', '7', '8', '9',
-                  'T', 'J', 'Q', 'K', 'A'};
+                      'T', 'J', 'Q', 'K', 'A'};
 
 int main(void) {
 
