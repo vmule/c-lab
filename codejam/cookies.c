@@ -15,13 +15,8 @@ int main(void) {
     scanf("%lf", &F);
     scanf("%lf\n", &X);
 
-    float CS = 2.0;
-    float seconds = 0;
-
-    if (C > X) {
-      printf("Case #%d: %.7f\n", (i + 1), (seconds +1));
-      continue;
-    }
+    double CS = 2.0000000;
+    double seconds = 0.0000000;
 
     while ( (seconds + X/CS) > (seconds + (C/CS) + (X/(CS + F))) ) {
       seconds += (C/CS);
