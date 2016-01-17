@@ -19,7 +19,7 @@ int main(void) {
     float seconds = 0;
 
     if (C > X) {
-      printf("Case #%d: %f\n", (i + 1), (seconds +1));
+      printf("Case #%d: %.7f\n", (i + 1), (seconds +1));
       continue;
     }
 
@@ -27,7 +27,7 @@ int main(void) {
       seconds += (C/CS);
       CS += F;
     }
-    printf("Case #%d: %f\n", (i + 1), (seconds + (X/CS)));
+    printf("Case #%d: %.7f\n", (i + 1), (seconds + (X/CS)));
   }
   return 0;
 }
