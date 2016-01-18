@@ -4,16 +4,19 @@
 
 int main(void) {
 
+  FILE *fd = fopen("./file", "r");
+  FILE *fd2 = fopen("./file.out", "w");
+
   int T;
-  scanf("%d\n", &T);
+  fscanf(fd, "%d\n", &T);
 
   int i;
   for (i = 0; i < T; i++) {
     double C, F, X;
 
-    scanf("%lf", &C);
-    scanf("%lf", &F);
-    scanf("%lf\n", &X);
+    fscanf(fd, "%lf", &C);
+    fscanf(fd, "%lf", &F);
+    fscanf(fd, "%lf\n", &X);
 
     double CS = 2.0000000;
     double seconds = 0.0000000;
@@ -22,7 +25,7 @@ int main(void) {
       seconds += (C/CS);
       CS += F;
     }
-    printf("Case #%d: %.7f\n", (i + 1), (seconds + (X/CS)));
+    fprintf(fd2, "Case #%d: %.7f\n", (i + 1), (seconds + (X/CS)));
   }
   return 0;
 }
