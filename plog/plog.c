@@ -1,4 +1,4 @@
-/*Copyright 2015 Vito Mule' 
+/*Copyright 2015 Vito Mule'
 
 This file may be used subject to the terms and conditions of the
 GNU Library General Public License Version 2 as published by the
@@ -65,7 +65,7 @@ int main(int argc, char const *argv[]) {
   char* linkpath = (char*) malloc(PATH_MAX+1);
   char buf[PATH_MAX+1];
   DIR *proc_dir;
-  
+
 
   if (argv[1][0] != '/') {
     strcpy(fullpath, "/proc/");

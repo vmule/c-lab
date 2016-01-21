@@ -29,11 +29,11 @@ int main(void) {
       i++;
     }
     inode = strtok(tmp, " ");
-  
+
    char proc_path[4097] = "/proc/";
    strcat(proc_path, pid);
    strcat(proc_path, "/fd/");
-  
+
     struct dirent** namelist;
     char file[PATH_MAX+1];
     int entries;
