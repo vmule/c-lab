@@ -7,10 +7,10 @@
 #include <algorithm>
 
 unsigned long long isPrime(unsigned long long num) {
-  if  ((num % 3) == 0 || num == 0)  {
-    return 0;
+  if  (num % 11)  {
+    return 1;
   }
-  return 1;
+  return 0;
 }
 
 int main(void) {
@@ -35,15 +35,16 @@ int main(void) {
   int coins_count  = 0;
   int isprime = 1;
   while (coins_count < J) {
-    unsigned long long P = 0;
-    int pow_idx = (N - 1);
-    for (int z = 2; z < (N - 2); z++) {
-//      std::cout << P << "\n";
-      P += (array[z] * (long)pow(2, pow_idx));
+    unsigned long long Q = 0;
+    int pow_idx = (N-1);
+    for (int z = 0; z < N; z++) {
+      Q += (array[z] * (long)pow(10, pow_idx));
       pow_idx--;
     }
-    unsigned long long  p = isPrime(P);
-    if (p || (std::find(coins.begin(), coins.end(), P) != coins.end())) {
+//    std::cout << Q << "\n";
+    unsigned long long  q = isPrime(Q);
+
+    if ((q == 1) || (std::find(coins.begin(), coins.end(), Q) != coins.end())) {
       int indx = rand() % (N-4) + 2;
       int value = rand() % 2;
       array[indx] = value;
@@ -51,9 +52,9 @@ int main(void) {
       for (int i = 0; i < N; i++) {
         std::cout << array[i];
       }
-      std::cout << " 3 4 5 6 7 8 9 10 11 \n";
+      std::cout << " 3 4 5 6 7 8 9 10 11\n";
       coins_count++;
-      coins.push_back(P);
+      coins.push_back(Q);
       int indx = rand() % (N-4) + 2;
       int value = rand() % 2;
       array[indx] = value;
