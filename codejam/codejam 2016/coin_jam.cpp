@@ -32,4 +32,5 @@ int main(void) {
       count++;
     }
   }
+  return 0;
 }
