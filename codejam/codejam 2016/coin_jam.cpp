@@ -4,21 +4,19 @@
 #include <boost/dynamic_bitset.hpp>
 
 int main(void) {
-
   int T;
   std::cin >> T;
   int N, J;
   std::cin >> N >> J;
 
-  std::cout << "Case #1:\n";
   int coins_count  = 0;
   int count = 0;
-  int Z = N-2;
   std::string buf;
 
+  std::cout << "Case #1:\n";
   while (coins_count < J) {
       std::string binary_10 = "1";
-      boost::dynamic_bitset<> bin(Z, count);
+      boost::dynamic_bitset<> bin((N-2), count);
       to_string(bin, buf);
       binary_10.append(buf);
       binary_10.append("1");
