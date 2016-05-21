@@ -1,27 +1,22 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<sys/socket.h>
-#include<arpa/inet.h>
-#include<netinet/in.h>
 #include<string.h>
+#include<arpa/inet.h>
+#include<fcntl.h>
+#include<netinet/in.h>
 #include<netinet/ip.h>
 #include<netinet/ip_icmp.h>
-#include<sys/types.h>
-#include<netinet/in.h>
-#include<unistd.h>
-#include<pthread.h>
 #include<poll.h>
-#include<sys/types.h>
-#include<sys/ipc.h>
-#include<fcntl.h>
-#include<sys/stat.h>
+#include<pthread.h>
 #include<signal.h>
-#include<sys/sem.h>
-#include<poll.h>
-#include<pthread.h>
+#include<sys/ipc.h>
 #include<sys/select.h>
+#include<sys/sem.h>
+#include<sys/socket.h>
+#include<sys/stat.h>
+#include<sys/types.h>
 #include<sys/un.h>
-#include<netinet/ip_icmp.h>
+#include<unistd.h>
 
 unsigned short csum (unsigned short *buf, int nwords) {
   unsigned long sum;
