@@ -3,11 +3,11 @@
 #include <string.h>
 
 char* compress(char* str) {
-    char* compress_str = (char*)calloc(1024, sizeof(char));
+    int size_str = strlen(str);
+    char* compress_str = (char*)calloc((size_str+1), sizeof(char));
     int i, j;
     int k = 1;
     int z = 0;
-    int size_str = strlen(str);
 
     for (i = 0; i < size_str; i++) {
       j = i;
